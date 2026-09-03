@@ -1,0 +1,9 @@
+bin/
+*.exe
+*.out
+.env
+pgdata/
+redisdata/
+esdata/
+vendor/
+.DS_Store

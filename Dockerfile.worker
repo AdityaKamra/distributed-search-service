@@ -1,0 +1,12 @@
+FROM golang:1.22-alpine AS builder
+WORKDIR /app
+RUN apk add --no-cache git gcc musl-dev
+COPY . .
+RUN go mod tidy && go mod download
+RUN mkdir -p /app/bin && CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o /app/bin/worker ./cmd/worker
+
+FROM alpine:3.19
+RUN apk --no-cache add ca-certificates curl tzdata
+WORKDIR /root/
+COPY --from=builder /app/bin/worker .
+CMD ["./worker"]

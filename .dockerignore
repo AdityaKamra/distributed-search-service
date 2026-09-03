@@ -1,0 +1,9 @@
+.git
+.gitignore
+README.md
+Makefile
+scripts/*.sh
+pgdata
+redisdata
+esdata
+.DS_Store
